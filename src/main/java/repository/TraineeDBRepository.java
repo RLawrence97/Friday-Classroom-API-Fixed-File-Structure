@@ -8,6 +8,7 @@ import java.util.List;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
 
 import domain.Trainee;
@@ -17,7 +18,7 @@ import domain.Trainee;
 @Transactional(SUPPORTS)
 public class TraineeDBRepository implements TraineeRepository{
 
-	@PersistenceContext(unitName = "primary")
+	@PersistenceContext(unitName = "primary", type=PersistenceContextType.EXTENDED)
 	private EntityManager em;
 	
 	@Transactional(REQUIRED)
@@ -44,9 +45,10 @@ public class TraineeDBRepository implements TraineeRepository{
 	@Transactional(REQUIRED)
 	public Trainee updateTrainee(Trainee t) {
 		Trainee toBeUpdated = em.find(Trainee.class, t.getTraineeID());
-		toBeUpdated.setFirstName(t.getFirstName());
-		toBeUpdated.setLastName(t.getLastName());
-		em.merge(toBeUpdated);
+		if (toBeUpdated != null) {
+			toBeUpdated = t;
+			em.merge(toBeUpdated);
+		}
 		return toBeUpdated;
 	}
 

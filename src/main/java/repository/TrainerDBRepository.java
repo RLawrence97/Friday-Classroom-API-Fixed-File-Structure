@@ -44,9 +44,10 @@ public class TrainerDBRepository implements TrainerRepository{
 	@Transactional(REQUIRED)
 	public Trainer updateTrainer(Trainer t) {
 		Trainer toBeUpdated = em.find(Trainer.class, t.getTrainerID());
-		toBeUpdated.setFirstName(t.getFirstName());
-		toBeUpdated.setLastName(t.getLastName());
-		em.merge(toBeUpdated);
+		if (toBeUpdated != null) {
+			toBeUpdated = t;
+			em.merge(toBeUpdated);
+		}
 		return toBeUpdated;
 	}
 	
@@ -61,9 +62,8 @@ public class TrainerDBRepository implements TrainerRepository{
 	@Transactional(REQUIRED)
 	public Trainer removeTraineeToID(long id, Trainee t) {
 		Trainer classRoomUpdated = em.find(Trainer.class, id);
-		List<Trainee> temp = classRoomUpdated.getTraineeList();
-		temp.remove(t);
-		classRoomUpdated.setTraineeList(temp);
+		classRoomUpdated.getTraineeList().remove(t);
+		em.merge(classRoomUpdated);
 		return classRoomUpdated;
 	}
 

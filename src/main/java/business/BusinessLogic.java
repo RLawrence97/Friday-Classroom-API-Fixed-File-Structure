@@ -44,8 +44,7 @@ public class BusinessLogic {
 	}
 	
 	public String updateByTrainer(Trainer incoming) {
-		Trainer a = trainerManager.findTrainerByID(incoming.getTrainerID());
-		return gutil.toGSON(trainerManager.updateTrainer(a));
+		return gutil.toGSON(trainerManager.updateTrainer(incoming));
 	}
 	
 
@@ -61,8 +60,7 @@ public class BusinessLogic {
 	}
 	
 	public String updateByTrainee(Trainee incoming) {
-		Trainee a = traineeManager.findTraineeByID(incoming.getTraineeID());
-		return gutil.toGSON(traineeManager.updateTrainee(a));
+		return gutil.toGSON(traineeManager.updateTrainee(incoming));
 	}
 	
 
