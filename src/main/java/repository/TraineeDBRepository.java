@@ -34,7 +34,7 @@ public class TraineeDBRepository implements TraineeRepository{
 	}
 
 	public List<Trainee> getAllTrainees() {
-		return em.createQuery("Select all from Trainee all", Trainee.class).getResultList();
+		return em.createQuery("Select t from Trainee t", Trainee.class).getResultList();
 	}
 
 	public Trainee findTraineeByID(long id) {
@@ -43,7 +43,7 @@ public class TraineeDBRepository implements TraineeRepository{
 
 	@Transactional(REQUIRED)
 	public Trainee updateTrainee(Trainee t) {
-		Trainee toBeUpdated = em.find(Trainee.class, t);
+		Trainee toBeUpdated = em.find(Trainee.class, t.getTraineeID());
 		toBeUpdated.setFirstName(t.getFirstName());
 		toBeUpdated.setLastName(t.getLastName());
 		em.merge(toBeUpdated);

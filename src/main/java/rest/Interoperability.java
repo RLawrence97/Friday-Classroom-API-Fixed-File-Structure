@@ -20,14 +20,14 @@ public class Interoperability {
 	
 	@GET
 	@Path("/alltrainers")
-	@Produces({ "application.json" })
+	@Produces({ "application/json" })
 	public String getAllTrainers() {
 		return bl.getAllTrainers();
 	}
 	
 	@GET
 	@Path("/alltrainees")
-	@Produces({ "application.json" })
+	@Produces({ "application/json" })
 	public String getAllTrainees() {
 		return bl.getAllTrainee();
 	}
@@ -55,6 +55,7 @@ public class Interoperability {
 	@DELETE
 	@Path("/removetrainee/{remove}")
 	@Produces({ "application/json" })
+	@Consumes({ "application/json" })
 	public String deleteTrainee(@PathParam("remove") long incomingID) {
 		return bl.deleteTrainee(incomingID);
 	}
@@ -62,6 +63,7 @@ public class Interoperability {
 	@POST
 	@Path("/updatetrainer")
 	@Produces({"application/json"})
+	@Consumes({ "application/json" })
 	public String update(Trainer incoming) {
 		return bl.updateByTrainer(incoming);
 	}
@@ -102,6 +104,7 @@ public class Interoperability {
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
 	public String removeFromClassRoom(@PathParam("id") long id, Trainee c) {
+		bl.addTrainee(c);
 		return bl.removeTraineeFromClass(id, c);
 	}
 	

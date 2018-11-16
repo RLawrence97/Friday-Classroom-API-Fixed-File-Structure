@@ -1,8 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Trainer {
@@ -11,11 +18,11 @@ public class Trainer {
 	private Long trainerID;
 	private String firstName;
 	private String lastName;
-	@OneToMany
+	@OneToMany (cascade =CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Trainee> traineeList;
 	
 	public Trainer() {
-		
+		traineeList = new ArrayList<Trainee>();
 	}
 	
 	public Trainer (long id, String fName, String lName, List<Trainee> incTList) {

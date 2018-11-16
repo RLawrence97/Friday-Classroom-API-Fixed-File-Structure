@@ -34,7 +34,7 @@ public class TrainerDBRepository implements TrainerRepository{
 	}
 
 	public List<Trainer> getAllTrainers() {
-		return em.createQuery("Select all from Trainer all", Trainer.class).getResultList();
+		return em.createQuery("Select t from Trainer t", Trainer.class).getResultList();
 	}
 
 	public Trainer findTrainerByID(long id) {
@@ -43,21 +43,22 @@ public class TrainerDBRepository implements TrainerRepository{
 
 	@Transactional(REQUIRED)
 	public Trainer updateTrainer(Trainer t) {
-		Trainer toBeUpdated = em.find(Trainer.class, t);
+		Trainer toBeUpdated = em.find(Trainer.class, t.getTrainerID());
 		toBeUpdated.setFirstName(t.getFirstName());
 		toBeUpdated.setLastName(t.getLastName());
 		em.merge(toBeUpdated);
 		return toBeUpdated;
 	}
-
+	
+	@Transactional(REQUIRED)
 	public Trainer addTraineeToID(long id, Trainee t) {
 		Trainer classRoomUpdated = em.find(Trainer.class, id);
-		List<Trainee> temp = classRoomUpdated.getTraineeList();
-		temp.add(t);
-		classRoomUpdated.setTraineeList(temp);
+		classRoomUpdated.getTraineeList().add(t);
+		em.merge(classRoomUpdated);
 		return classRoomUpdated;
 	}
 
+	@Transactional(REQUIRED)
 	public Trainer removeTraineeToID(long id, Trainee t) {
 		Trainer classRoomUpdated = em.find(Trainer.class, id);
 		List<Trainee> temp = classRoomUpdated.getTraineeList();
