@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
 
 import domain.Trainee;
+import domain.Trainer;
 
 
 @Default
@@ -28,9 +29,12 @@ public class TraineeDBRepository implements TraineeRepository{
 	}
 
 	@Transactional(REQUIRED)
-	public long deleteTrainee(long id) {
-		Trainee toBeDeleted = em.find(Trainee.class, id);
-		em.remove(toBeDeleted);
+	public long deleteTrainee(long id, Trainee inc) {
+		Trainer toBeDeleted = em.find(Trainer.class, id);
+		if(toBeDeleted.getTraineeList().contains(inc)) {
+			toBeDeleted.getTraineeList().remove(inc);
+			em.merge(toBeDeleted);
+		}
 		return id;
 	}
 

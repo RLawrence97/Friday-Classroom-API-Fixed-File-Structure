@@ -56,8 +56,9 @@ public class Interoperability {
 	@DELETE
 	@Path("/removetrainee/{remove}")
 	@Produces({ "application/json" })
-	public String deleteTrainee(@PathParam("remove") long incomingID) {
-		return bl.deleteTrainee(incomingID);
+	@Consumes({ "application/json" })
+	public String deleteTrainee(@PathParam("remove") long incomingID, Trainee inc) {
+		return bl.deleteTrainee(incomingID, inc);
 	}
 	
 	@PUT
@@ -84,7 +85,7 @@ public class Interoperability {
 	}
 	
 	@POST
-	@Path("/addtrainee")
+	@Path("/addtrainee/{id}")
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
 	public String addTrainee(Trainee c) {

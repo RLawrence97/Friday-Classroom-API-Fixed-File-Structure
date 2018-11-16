@@ -64,8 +64,8 @@ public class BusinessLogic {
 	}
 	
 
-	public String deleteTrainee(long incomingID) {
-		return "{\" deleted account\" : \"" +traineeManager.deleteTrainee(incomingID) + "\"}";
+	public String deleteTrainee(long incomingID, Trainee inc) {
+		return "{\" deleted account\" : \"" +traineeManager.deleteTrainee(incomingID, inc) + "\"}";
 	}
 
 	public String addTrainee(Trainee incoming) {

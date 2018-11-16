@@ -12,5 +12,4 @@ public interface TrainerRepository {
 	public Trainer findTrainerByID(long id);
 	public Trainer updateTrainer(Trainer t);
 	public Trainer addTraineeToID(long id, Trainee t);
-
 }
