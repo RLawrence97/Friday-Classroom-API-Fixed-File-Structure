@@ -99,14 +99,6 @@ public class Interoperability {
 		return bl.addTraineeToClass(id, c);
 	}
 	
-	@DELETE
-	@Path("/removetraineeto/{id}")
-	@Consumes({ "application/json" })
-	@Produces({ "application/json" })
-	public String removeFromClassRoom(@PathParam("id") long id, Trainee c) {
-		return bl.removeTraineeFromClass(id, c);
-	}
-	
 	@GET
 	@Path("/numberofstudents/{id}")
 	@Produces({" application/json "})

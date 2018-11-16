@@ -76,10 +76,6 @@ public class BusinessLogic {
 		return gutil.toGSON(trainerManager.addTraineeToID(incomingID, t));
 	}
 	
-	public String removeTraineeFromClass(long incomingID, Trainee t) {
-		return gutil.toGSON(trainerManager.removeTraineeToID(incomingID, t));
-	}
-	
 	public String numberOfStudentsByID(long trainerID) {
 		Trainer t = trainerManager.findTrainerByID(trainerID);
 		return "{ " +  t.getFirstName() + " " + t.getLastName() + " : " + t.getTraineeList().size() + " students }";

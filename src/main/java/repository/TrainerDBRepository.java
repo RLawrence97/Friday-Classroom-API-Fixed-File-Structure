@@ -59,12 +59,4 @@ public class TrainerDBRepository implements TrainerRepository{
 		return classRoomUpdated;
 	}
 
-	@Transactional(REQUIRED)
-	public Trainer removeTraineeToID(long id, Trainee t) {
-		Trainer classRoomUpdated = em.find(Trainer.class, id);
-		classRoomUpdated.getTraineeList().remove(t);
-		em.merge(classRoomUpdated);
-		return classRoomUpdated;
-	}
-
 }
